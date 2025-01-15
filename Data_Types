@@ -1,0 +1,131 @@
+CREATE COMPUTE MODULE datatypes_Compute
+    CREATE FUNCTION Main() RETURNS BOOLEAN
+    BEGIN
+         
+         --CALL BooleanDatatype();
+         --CALL DateDatatype();
+         --CALL Time2();
+         --CALL interval5();
+         --CALL null1();
+         CALL numericDECIMAL();
+         
+        
+        RETURN TRUE;
+    END;
+
+    CREATE PROCEDURE BooleanDatatype() 
+    BEGIN
+        DECLARE boolvar BOOLEAN;
+        SET boolvar = FALSE;  
+        DECLARE boolvar1 BOOLEAN;
+        SET boolvar1 = TRUE;  
+        DECLARE boolvar2 BOOLEAN;
+        SET boolvar2 = NULL; 
+        DECLARE defaultbool BOOLEAN;  
+        
+        SET OutputRoot.JSON.Data.MESSAGE1 = boolvar;
+        SET OutputRoot.JSON.Data.MESSAGE2 = boolvar1;
+        SET OutputRoot.JSON.Data.MESSAGE3 = boolvar2; 
+        SET OutputRoot.JSON.Data.Defaultvalue = boolvar1; 
+    END;
+
+    CREATE PROCEDURE DateDatatype()
+    BEGIN
+        DECLARE Deafaultvalue DATE;
+        DECLARE mydate DATE;
+        SET mydate = DATE '2000-02-29';
+        SET Deafaultvalue = DATE '2000-01-01';  
+        SET OutputRoot.JSON.Data.MESSAGE1 = mydate;
+        SET OutputRoot.JSON.Data.MESSAGE2 = Deafaultvalue;
+    END;
+
+    CREATE PROCEDURE Time2()
+    BEGIN
+        DECLARE DeTime TIME;
+        DECLARE MyTime TIME;
+        SET MyTime = TIME '11:49:23.656';
+
+        DECLARE MyGetGmttime GMTTIME;
+        SET MyGetGmttime = GMTTIME '11:49:23.656';
+
+        DECLARE MyTimeStamp TIMESTAMP;
+        SET MyTimeStamp = TIMESTAMP '1999-12-31 23:59:59'; 
+
+        DECLARE MyGetGMTTimeStamp GMTTIMESTAMP;
+        SET MyGetGMTTimeStamp = GMTTIMESTAMP '1999-12-31 23:59:59.999999';
+
+        SET OutputRoot.JSON.Data.MESSAGE2 = DeTime;
+        SET OutputRoot.JSON.Data.MESSAGE1 = MyTime;
+        SET OutputRoot.JSON.Data.MyGetGmttime = MyGetGmttime;
+        SET OutputRoot.JSON.Data.MyTimeStamp = MyTimeStamp;
+        SET OutputRoot.JSON.Data.MyGetGMTTimeStamp = MyGetGMTTimeStamp;
+        SET OutputRoot.JSON.Data.myTimestamp = CURRENT_TIMESTAMP;
+    END;
+
+    CREATE PROCEDURE interval5()
+    BEGIN 
+        DECLARE myTimestamp TIMESTAMP;
+        SET myTimestamp = CURRENT_TIMESTAMP;
+        
+        DECLARE i1 INTERVAL;
+        DECLARE i2 INTERVAL;
+        DECLARE i3 INTERVAL;
+        DECLARE i4 INTERVAL;
+        DECLARE i5 INTERVAL;
+        DECLARE i6 INTERVAL;
+        DECLARE i7 INTERVAL;
+        DECLARE i8 INTERVAL;
+
+        SET i1 = INTERVAL '10' YEAR;                     -- 10 years
+        SET i2 = INTERVAL '-5' YEAR;                     -- -5 years (5 years in the past)
+        SET i3 = INTERVAL '2-06' YEAR TO MONTH;          -- 2 years and 6 months
+        SET i4 = INTERVAL '30' DAY;                       -- 30 days
+        SET i5 = INTERVAL '1 12' DAY TO HOUR;            -- 1 day and 12 hours
+        SET i6 = INTERVAL '1:30' HOUR TO MINUTE;         -- 1 hour and 30 minutes
+        SET i7 = INTERVAL '45:15' MINUTE TO SECOND;      -- 45 minutes and 15 seconds
+        SET i8 = INTERVAL '3600' SECOND;                  -- 3600 seconds (1 hour)
+ SET OutputRoot.JSON.Data.IntervalMessage= myTimestamp;
+ SET myTimestamp = myTimestamp + i1;
+
+       SET OutputRoot.JSON.Data.IntervalMessage1= myTimestamp ;
+       
+      DECLARE i9 INTERVAL;
+SET i9 = CAST(i4 AS INTERVAL DAY TO HOUR);
+ SET OutputRoot.JSON.Data.IntervalMessage9=i9;
+    END;
+    
+    
+    CREATE PROCEDURE null1()
+    BEGIN 
+    	
+      /*	DECLARE NameField REFERENCE TO InputRoot.JSON.Data.Name;
+
+       IF NameField IS NOT NULL THEN
+      SET OutputRoot.JSON.Data.Name = InputRoot.JSON.Data.Name;
+      END IF;*/
+ 
+
+-- Incorrect way (deletes the field)
+  --SET OutputRootJSON.Data.Name = NULL;
+
+-- Correct way (assigns a null value)
+  SET OutputRoot.JSON.Data.Name = NULL;
+    	END;
+
+CREATE PROCEDURE numericDECIMAL()
+    BEGIN 
+    	
+    	DECLARE num1 DECIMAL '123.12';
+    	DECLARE num2 DECIMAL '789.123';
+    	DECLARE sum DECIMAL num1 + num2;
+    	DECLARE difference DECIMAL num2 - num1;
+    	DECLARE product DECIMAL num1 * num2;
+    	DECLARE quotient DECIMAL num2 / num1;
+    	 SET OutputRoot.JSON.Data.add=sum;
+    	 SET OutputRoot.JSON.Data.difference=difference;
+    	  SET OutputRoot.JSON.Data.product=product;
+    	   SET OutputRoot.JSON.Data.product=product;
+    	END;
+
+
+END MODULE;
