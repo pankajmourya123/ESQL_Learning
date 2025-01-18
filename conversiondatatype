@@ -1,0 +1,225 @@
+CREATE COMPUTE MODULE conversion_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		/* Between Numeric Types:
+		Integer ↔ Decimal
+		Integer ↔ Float
+		Decimal ↔ Float */
+		
+		CALL numericconversionInteger_Decimal();
+		 --CALL numericconversionInteger_Float();
+		 --CALL numericconversionDecimal_Float();
+		
+		/* Between Character and Binary Types:
+		Character ↔ Bit
+		Character ↔ Blob */
+		
+		--CALL Character_Binary();
+		 --CALL Character_BLOB();
+		
+		/* Between Date/Time Types:
+		Date ↔ Timestamp
+		Date ↔ Time
+		Timestamp ↔ Time
+		Timestamp ↔ Interval */
+		
+		CALL Date_Timestamp_Conversion();
+		CALL Date_Time_Conversion();
+		CALL Timestamp_Time_Conversion();
+		CALL Timestamp_Interval_Conversion();
+		
+		/* Reference to Data Types
+		Reference ↔ Value Types */
+		
+		CALL Reference_Value_Type_Conversion();
+		
+		RETURN TRUE;
+	END;
+
+	-- Integer ↔ Decimal
+	CREATE PROCEDURE numericconversionInteger_Decimal() BEGIN
+		DECLARE num1 INTEGER;
+		SET num1 = 123;
+		
+		-- Convert Integer to Decimal
+		DECLARE num1_decimal DECIMAL;
+		SET num1_decimal = CAST(num1 AS DECIMAL);
+		
+		-- Convert Decimal to Integer
+		DECLARE num1_from_decimal INTEGER;
+		SET num1_from_decimal = CAST(num1_decimal AS INTEGER);
+		
+		-- Output the results
+		SET OutputRoot.JSON.Data.num1 = num1;
+		SET OutputRoot.JSON.Data.num1_decimal = num1_decimal;
+		SET OutputRoot.JSON.Data.num1_from_decimal = num1_from_decimal;
+	END;
+
+	-- Integer ↔ Float
+	CREATE PROCEDURE numericconversionInteger_Float() BEGIN
+		DECLARE num1 INTEGER;
+		SET num1 = 123;
+		
+		-- Convert Integer to Float
+		DECLARE num1_float FLOAT;
+		SET num1_float = CAST(num1 AS FLOAT);
+		
+		-- Convert Float to Integer
+		DECLARE num1_from_float INTEGER;
+		SET num1_from_float = CAST(num1_float AS INTEGER);
+		
+		-- Output the results
+		SET OutputRoot.JSON.Data.num1 = num1;
+		SET OutputRoot.JSON.Data.num1_float = num1_float;
+		SET OutputRoot.JSON.Data.num1_from_float = num1_from_float;
+	END;
+
+	-- Decimal ↔ Float
+	CREATE PROCEDURE numericconversionDecimal_Float() BEGIN
+		DECLARE num1 DECIMAL;
+		SET num1 = 123.45;
+		
+		-- Convert Decimal to Float
+		DECLARE num1_float FLOAT;
+		SET num1_float = CAST(num1 AS FLOAT);
+		
+		-- Convert Float to Decimal
+		DECLARE num1_from_float DECIMAL;
+		SET num1_from_float = CAST(num1_float AS DECIMAL);
+		
+		-- Output the results
+		SET OutputRoot.JSON.Data.num1 = num1;
+		SET OutputRoot.JSON.Data.num1_float = num1_float;
+		SET OutputRoot.JSON.Data.num1_from_float = num1_from_float;
+	END;
+
+	-- Character ↔ Bit
+	CREATE PROCEDURE Character_Binary() BEGIN
+		DECLARE myChar CHARACTER;
+		SET myChar = '10101';
+		
+		-- Convert Character to Bit: Ensure that the character string is a valid bit array
+		DECLARE myBit BIT;
+		-- We need to ensure that the input string is treated as a valid binary value
+		SET myBit = CAST( x'00010101' AS BIT);  -- Explicit hexadecimal for clarity
+		
+		-- Convert Bit back to Character: Handle conversion properly
+		DECLARE myCharFromBit CHARACTER;
+		-- Convert to a string of the proper format
+		SET myCharFromBit = CAST(myBit AS CHARACTER);
+		
+		-- Output the results
+		SET OutputRoot.JSON.Data.myChar = myChar;
+		SET OutputRoot.JSON.Data.myBit = myBit;
+		SET OutputRoot.JSON.Data.myCharFromBit = myCharFromBit;
+	END;
+
+	-- Character ↔ Blob
+	CREATE PROCEDURE Character_BLOB() BEGIN
+		DECLARE myChar CHARACTER;
+		SET myChar = '10101';
+		
+		-- Convert Character to Blob
+		DECLARE myBlob BLOB;
+		SET myBlob = CAST(myChar AS BLOB);
+		
+		-- Convert Blob back to Character
+		DECLARE myCharFromBlob CHARACTER;
+		SET myCharFromBlob = CAST(myBlob AS CHARACTER);
+		
+		-- Output the results
+		SET OutputRoot.JSON.Data.myChar = myChar;
+		SET OutputRoot.JSON.Data.myBlob = myBlob;
+		SET OutputRoot.JSON.Data.myCharFromBlob = myCharFromBlob;
+	END;
+	
+	
+	
+	
+	-- Date ↔ Timestamp
+	CREATE PROCEDURE Date_Timestamp_Conversion() BEGIN
+		DECLARE myDate DATE;
+		SET myDate = '2025-01-01';
+		
+		-- Convert Date to Timestamp
+		DECLARE myTimestamp TIMESTAMP;
+		SET myTimestamp = CAST(myDate AS TIMESTAMP);
+		
+		-- Convert Timestamp back to Date
+		DECLARE myDateFromTimestamp DATE;
+		SET myDateFromTimestamp = CAST(myTimestamp AS DATE);
+		
+		-- Output the results
+		SET OutputRoot.JSON.Data.myDate = myDate;
+		SET OutputRoot.JSON.Data.myTimestamp = myTimestamp;
+		SET OutputRoot.JSON.Data.myDateFromTimestamp = myDateFromTimestamp;
+	END;
+
+	-- Date ↔ Time
+	CREATE PROCEDURE Date_Time_Conversion() BEGIN
+		DECLARE myDate DATE;
+		SET myDate = '2025-01-01';
+		
+		-- Convert Date to Time (extract time component)
+		DECLARE myTime TIME;
+		SET myTime = CAST(myDate AS TIME);
+		
+		-- Output the results
+		SET OutputRoot.JSON.Data.myDate = myDate;
+		SET OutputRoot.JSON.Data.myTime = myTime;
+	END;
+
+	-- Timestamp ↔ Time
+	CREATE PROCEDURE Timestamp_Time_Conversion() BEGIN
+		DECLARE myTimestamp TIMESTAMP;
+		SET myTimestamp = '2025-01-01 12:00:00';
+		
+		-- Convert Timestamp to Time (extract time component)
+		DECLARE myTime TIME;
+		SET myTime = CAST(myTimestamp AS TIME);
+		
+		-- Output the results
+		SET OutputRoot.JSON.Data.myTimestamp = myTimestamp;
+		SET OutputRoot.JSON.Data.myTime = myTime;
+	END;
+
+	-- Timestamp ↔ Interval
+	CREATE PROCEDURE Timestamp_Interval_Conversion() BEGIN
+		DECLARE myTimestamp TIMESTAMP;
+		SET myTimestamp = '2025-01-01 12:00:00';
+		
+		-- Convert Timestamp to Interval (difference in time)
+		DECLARE myInterval INTERVAL;
+		SET myInterval = CAST(myTimestamp AS INTERVAL);
+		
+		-- Convert Interval back to Timestamp (you can add this to your system's functionality if needed)
+		DECLARE myTimestampFromInterval TIMESTAMP;
+		SET myTimestampFromInterval = CAST(myInterval AS TIMESTAMP);
+		
+		-- Output the results
+		SET OutputRoot.JSON.Data.myTimestamp = myTimestamp;
+		SET OutputRoot.JSON.Data.myInterval = myInterval;
+		SET OutputRoot.JSON.Data.myTimestampFromInterval = myTimestampFromInterval;
+	END;
+
+	-- Reference ↔ Value Types
+	CREATE PROCEDURE Reference_Value_Type_Conversion() BEGIN
+		-- Example: Convert Integer (value type) to a Reference (Reference to Integer)
+		DECLARE myInteger INTEGER;
+		SET myInteger = 42;
+		
+		-- Assuming some reference type for illustration
+		DECLARE myIntegerReference REF TO INTEGER;
+		SET myIntegerReference = CAST(myInteger AS REF TO INTEGER);
+		
+		-- Convert Reference back to Value Type (Integer)
+		DECLARE myIntegerFromRef INTEGER;
+		SET myIntegerFromRef = CAST(myIntegerReference AS INTEGER);
+		
+		-- Output the results
+		SET OutputRoot.JSON.Data.myInteger = myInteger;
+		SET OutputRoot.JSON.Data.myIntegerReference = myIntegerReference;
+		SET OutputRoot.JSON.Data.myIntegerFromRef = myIntegerFromRef;
+	END;
+
+END MODULE;
