@@ -23,3 +23,56 @@ END MODULE;
 
 
 --yaha par 2 httpinput ko 1 compute se connect kar phir voo httpoutput
+
+
+<------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+
+
+
+
+
+DECLARE gobalshrvar SHARED INTEGER 0;
+
+CREATE COMPUTE MODULE Timepass_Compute
+
+	DECLARE localshrvar SHARED INTEGER 0;
+
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+
+		SET localshrvar=localshrvar+1;
+
+		SET OutputRoot.JSON.Data.localcounter = localshrvar;
+
+
+		RETURN TRUE;
+
+	END;
+END MODULE;
+
+
+
+
+
+
+CREATE COMPUTE MODULE Timepass_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+
+		SET gobalshrvar=gobalshrvar+1;
+	
+		 SET OutputRoot.JSON.Data.gobalshrvar = gobalshrvar;
+
+	END;
+END MODULE;
+
+
+yaha par 2 httpinput 2 compute and 1 httpreply
+
+
