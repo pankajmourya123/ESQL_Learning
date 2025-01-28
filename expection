@@ -1,0 +1,48 @@
+-- expection yaha par 1 http inpute jaha pe humai complete karna parse timing 
+phir hum  2 compute node use karenge jismia ek normal compute aur 2 wala expection handling ke lye use karenge aur yeh dono ek hi http reply node ko connect karenge aur compute node mai compte mode ko all karenge expection wale 
+compute node pe 
+
+
+parse timing -- complete --message should be xmlnsc hi chaiyeh jo specify kiya voo but agar message mai error hoga phir toh bhi pass hoga 
+                no demand --message should be xmlnsc hi chaiyeh jo specify kiya voo but agar message mai error hoga phir bhi pass nahi hoga
+                Immediate --
+
+
+CREATE COMPUTE MODULE taskexpection_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;	
+
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+
+		SET OutputRoot=InputRoot;
+	END;
+END MODULE;
+
+
+
+CREATE COMPUTE MODULE taskexpection_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		
+		
+			
+		SET OutputRoot.JSON.Data.errMessage = InputExceptionList.ParserException.Text;
+		
+	END;
+END MODULE;
+
