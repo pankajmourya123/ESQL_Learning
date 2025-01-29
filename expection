@@ -8,41 +8,87 @@ parse timing -- complete --message should be xmlnsc hi chaiyeh jo specify kiya v
                 Immediate --
 
 
-CREATE COMPUTE MODULE taskexpection_Compute
-	CREATE FUNCTION Main() RETURNS BOOLEAN
-	BEGIN
-
-		CALL CopyEntireMessage();
-		RETURN TRUE;
-	END;	
 
 
 
-	CREATE PROCEDURE CopyEntireMessage() BEGIN
 
-		SET OutputRoot=InputRoot;
-	END;
-END MODULE;
 
 
 
 CREATE COMPUTE MODULE taskexpection_Compute1
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
-		
-		
-		 CALL CopyEntireMessage();
+
+
+		CALL CopyEntireMessage();
 		RETURN TRUE;
 	END;
 
-	
-	CREATE PROCEDURE CopyEntireMessage() BEGIN
+
+	CREATE PROCEDURE CopyEntireMessage()
+	BEGIN
+		DECLARE messageNumber INTEGER;
+		DECLARE messageText CHARACTER;
+		 
+
+
+		declare ptrException reference to InputExceptionList.*[1];
+		DECLARE i INTEGER 1;
+        DECLARE  count INTEGER ;
+        
+        /*SET count=CARDINALITY(	ptrException.ParserException.ParserException.Insert[]);	
+        SET OutputRoot.JSON.Data.count=count;*/
+        DECLARE res CHARACTER ;
+        
+        
+        
+		-- SET OutputRoot.XMLNSC.root.test.messageText= ptrException.ParserException.ParserException.Insert[5];
+		 
+		 SET OutputRoot.JSON.Data.errmessage =ptrException.ParserException.ParserException.Insert[5];
 		
 		
+		/*WHILE i<=count DO
+			DECLARE temp CHARACTER;
+			SET temp=ptrException.ParserException.ParserException.Insert[i];
+			SET res=res||temp;
+			SET i=i+1;
+		END WHILE;
 		
+		SET OutputRoot.JSON.Data.errmessage=res;*/
 			
-		SET OutputRoot.JSON.Data.errMessage = InputExceptionList.ParserException.Text;
+		/*WHILE lastmove(ptrException) DO
+		IF ptrException.Number is not null THEN
+		SET messageNumber = ptrException.Number;
+		SET messageText = ptrException.Text;
+		SET OutputRoot.XMLNSC.root.test[i].messageNumber=messageNumber;
+		SET OutputRoot.XMLNSC.root.test[i].messageText=messageText;
+		SET i=i+1;
+		END IF;
+		-- now move to the last child which should be the next exceptionlist
+		move ptrException lastchild;
+		END WHILE; */		
 		
-	END;
-END MODULE;
+		
+		
+		
+
+		/* DECLARE start REFERENCE TO InputExceptionList.*[1];
+		SET OutputRoot.JSON.Data.errnumber = start.Number;
+		SET OutputRoot.JSON.Data.text = start.Text;
+		DECLARE total INTEGER CARDINALITY(InputExceptionList.*[]);
+		SET total=3;
+		SET OutputRoot.JSON.Data.total = 3;
+		DECLARE i INTEGER 1;
+		WHILE i <= total DO
+		SET OutputRoot.JSON.Data.Exceptions[i].number = InputExceptionList.*[i].Number;
+		SET OutputRoot.JSON.Data.Exceptions[i].Text = InputExceptionList.*[i].Text;
+		SET i = i + 1;
+		END WHILE;
+		*/		
+
+
+		
+
+		END;
+	END MODULE;
 
