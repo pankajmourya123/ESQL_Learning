@@ -1,1 +1,141 @@
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CREATE COMPUTE MODULE flow1_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		--CALL Numeric_comparisons();
+		--CALL Date_Time_comparisons();
+		--CALL Interval_comparisons();
+		--CALL String_comparisons();
+
+		CALL Handling_Null_comparisons();
+		/*CALL List_Rows_comparisons();*/
+
+		RETURN TRUE;
+	END;
+
+
+
+	CREATE PROCEDURE Numeric_comparisons() BEGIN
+
+		DECLARE num1 INTEGER 10;
+		DECLARE num2 INTEGER 20;
+		-- Greater than
+		IF num1 > num2 THEN
+			SET OutputRoot.JSON.Data.Result = 'num1 is greater than num2';
+		ELSE
+			SET OutputRoot.JSON.Data.Result = 'num1 is not greater than num2';
+		END IF;
+		-- Less than
+		IF num1 < num2 THEN
+			SET OutputRoot.JSON.Data.LessThan = 'num1 is less than num2';
+		END IF;
+		-- Greater than or equal to
+		IF num1 >= num2 THEN
+			SET OutputRoot.JSON.Data.GreaterEqual = 'num1 is greater than or equal to num2';
+		ELSE
+			SET OutputRoot.JSON.Data.GreaterEqual = 'num1 is not greater than or equal to num2';
+		END IF;
+		-- Less than or equal to
+		IF num1 <= num2 THEN
+			SET OutputRoot.JSON.Data.LessEqual = 'num1 is less than or equal to num2';
+		END IF;
+		-- Equal to
+		IF num1 = num2 THEN
+			SET OutputRoot.JSON.Data.Equal = 'num1 is equal to num2';
+		ELSE
+			SET OutputRoot.JSON.Data.Equal = 'num1 is not equal to num2';
+		END IF;
+		-- Not equal to
+		IF num1 <> num2 THEN
+			SET OutputRoot.JSON.Data.NotEqual = 'num1 is not equal to num2';
+		END IF;
+	END;
+
+	CREATE PROCEDURE Date_Time_comparisons() BEGIN
+		DECLARE date1 DATE '2025-01-01';
+		DECLARE date2 DATE '2024-01-01';
+		/* IF date1 < date2 THEN
+		SET OutputRoot.JSON.Data.DateComparison = 'date1 is before date2';
+		END IF;
+		IF date1 > date2 THEN
+		SET OutputRoot.JSON.Data.DateComparison = 'date1 is after date2';
+		END IF;
+		IF date1 = date2 THEN
+		SET OutputRoot.JSON.Data.DateComparison = 'date1 is equal date2';
+		END IF;
+		IF date1 <> date2 THEN
+		SET OutputRoot.JSON.Data.NotEqual = 'date1 is not equal to date2';
+		END IF;*/
+		-- Comparing timestamps
+		DECLARE ts1 TIMESTAMP '2023-01-01 10:30:00';
+		DECLARE ts2 TIMESTAMP '2023-01-01 12:00:00';
+
+		IF ts1 < ts2 THEN
+			SET OutputRoot.JSON.Data.TimestampComparison = 'ts1 is earlier than ts2';
+		END IF;
+	END;
+
+
+	CREATE PROCEDURE Interval_comparisons() BEGIN
+		DECLARE i1 INTERVAL;
+		DECLARE i2 INTERVAL ;
+		SET i1 = INTERVAL '10' YEAR;
+		SET i2 = INTERVAL '12' YEAR;
+
+		IF i1 < i2 THEN
+			SET OutputRoot.JSON.Data.IntervalComparison = 'interval1 is shorter than interval2';
+		ELSE
+			SET OutputRoot.JSON.Data.IntervalComparison = 'interval1 is longer or equal to interval2';
+		END IF;
+	END;
+
+
+
+	CREATE PROCEDURE String_comparisons() BEGIN
+		DECLARE str1 CHARACTER 'ABD';
+		DECLARE str2 CHARACTER 'ABC';
+		-- Greater than (Lexicographic comparison)
+		IF str1 > str2 THEN
+			SET OutputRoot.JSON.Data.StringComparison = 'str1 is greater than str2';
+		END IF;
+		-- Less than
+		IF str1 < str2 THEN
+			SET OutputRoot.JSON.Data.StringComparison = 'str1 is less than str2';
+		END IF;
+		-- Equal to
+		IF str1 = str2 THEN
+			SET OutputRoot.JSON.Data.StringComparison = 'str1 is equal to str2';
+		ELSE
+			SET OutputRoot.JSON.Data.StringComparison = 'str1 is not equal to str2';
+		END IF;
+	END;	
+
+
+	CREATE PROCEDURE Handling_Null_comparisons() BEGIN
+		DECLARE var1 INTEGER NULL;
+		DECLARE var2 INTEGER 10;
+
+		IF var1 = var2 THEN
+			SET OutputRoot.JSON.Data.NullComparison = 'var1 is equal to var2';
+		ELSE
+			SET OutputRoot.JSON.Data.NullComparison = 'var1 is NULL or not equal to var2';
+		END IF;
+	END;
+
+
+END MODULE;
