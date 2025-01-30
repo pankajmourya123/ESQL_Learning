@@ -45,16 +45,22 @@ CREATE COMPUTE MODULE taskexpection_Compute1
 		-- SET OutputRoot.XMLNSC.root.test.messageText= ptrException.ParserException.ParserException.Insert[5];
 		 
 		 SET OutputRoot.JSON.Data.errmessage =ptrException.ParserException.ParserException.Insert[5];
-		
-		
-		/*WHILE i<=count DO
+		DECLARE i INTEGER 1;
+        DECLARE  count INTEGER ;
+        declare ptrException reference to InputExceptionList.*[1];
+        
+       
+        SET count=CARDINALITY(	ptrException.ParserException.ParserException.Insert[]);	
+       
+        DECLARE res CHARACTER ;
+        SET res='__';
+		WHILE i<=count DO
 			DECLARE temp CHARACTER;
-			SET temp=ptrException.ParserException.ParserException.Insert[i];
-			SET res=res||temp;
+			 SET temp=ptrException.ParserException.ParserException.Insert[i].[2];
+			SET res=res||temp||'__';
 			SET i=i+1;
 		END WHILE;
-		
-		SET OutputRoot.JSON.Data.errmessage=res;*/
+		 SET OutputRoot.JSON.Data.errmessage=res;
 			
 		/*WHILE lastmove(ptrException) DO
 		IF ptrException.Number is not null THEN
