@@ -1,0 +1,47 @@
+--Integration node properties that are accessible from ESQL, the Mapping node, and Java
+
+CREATE COMPUTE MODULE flow1_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+        
+        
+        SET OutputRoot.JSON.Data.BrokerName = BrokerName;
+        SET OutputRoot.JSON.Data.BrokerUserId = BrokerUserId;
+        SET OutputRoot.JSON.Data.BrokerVersion = BrokerVersion;
+        SET OutputRoot.JSON.Data.BrokerDataSource = BrokerDataSource;
+        SET OutputRoot.JSON.Data.ExecutionGroupLabel = ExecutionGroupLabel;
+        SET OutputRoot.JSON.Data.QueueManagerName = QueueManagerName;
+        SET OutputRoot.JSON.Data.NodeLabel = NodeLabel;
+        SET OutputRoot.JSON.Data.MessageFlowLabel = MessageFlowLabel;
+        SET OutputRoot.JSON.Data.ApplicationLabel = ApplicationLabel;
+        SET OutputRoot.JSON.Data.LibraryLabel = LibraryLabel;
+        SET OutputRoot.JSON.Data.ExecutionGroupName = ExecutionGroupName;
+        SET OutputRoot.JSON.Data.Family = Family;
+        SET OutputRoot.JSON.Data.ProcessId = ProcessId;
+        SET OutputRoot.JSON.Data.WorkPath = WorkPath;
+        
+        -- Flow Properties
+        SET OutputRoot.JSON.Data.AdditionalInstances = AdditionalInstances;
+        SET OutputRoot.JSON.Data.CommitCount = CommitCount;
+        SET OutputRoot.JSON.Data.CommitInterval = CommitInterval;
+        SET OutputRoot.JSON.Data.CoordinatedTransaction = CoordinatedTransaction;
+        SET OutputRoot.JSON.Data.MaximumRateMsgsPerSec = MaximumRateMsgsPerSec;
+        SET OutputRoot.JSON.Data.NotificationThresholdMsgsPerSec = NotificationThresholdMsgsPerSec;
+        SET OutputRoot.JSON.Data.WlmPolicy = WlmPolicy;
+
+        -- Node Properties
+        SET OutputRoot.JSON.Data.DataSource = DataSource;
+        SET OutputRoot.JSON.Data.DataSourceUserId = DataSourceUserId;
+        SET OutputRoot.JSON.Data.MessageOptions = MessageOptions;
+        SET OutputRoot.JSON.Data.ThrowExceptionOnDatabaseError = ThrowExceptionOnDatabaseError;
+        SET OutputRoot.JSON.Data.TransactionType =Transaction;
+        SET OutputRoot.JSON.Data.TreatWarningsAsErrors = TreatWarningsAsErrors;
+    END;
+END MODULE;
