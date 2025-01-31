@@ -1,0 +1,147 @@
+
+
+CREATE COMPUTE MODULE flow1_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		--CALL BETWEEN_operator();
+		--CALL EXISTS_operator();
+		--CALL IN_operator();
+		--CALL IS_operator();
+		
+		CALL LIKE_operator();
+		CALL SINGULAR_operator();
+		RETURN TRUE;
+	END;
+	CREATE PROCEDURE BETWEEN_operator() BEGIN
+
+		DECLARE var1 INTEGER -20;
+		DECLARE res BOOLEAN ;
+		DECLARE res2 BOOLEAN ;
+
+		SET res= var1 BETWEEN SYMMETRIC -10 AND -30;
+		SET OutputRoot.JSON.Data.res=res;
+
+
+		SET res2= var1 BETWEEN SYMMETRIC -30 AND -10;
+		SET OutputRoot.JSON.Data.res2=res2;
+
+
+		DECLARE resasym BOOLEAN ;
+		DECLARE res2asym BOOLEAN ;
+
+		SET resasym= var1 BETWEEN ASYMMETRIC -10 AND -30;
+		SET OutputRoot.JSON.Data.resasym=resasym;
+
+
+		SET res2asym= var1 BETWEEN ASYMMETRIC -30 AND -10;
+		SET OutputRoot.JSON.Data.res2asym=res2asym;
+	END;
+
+
+
+	CREATE PROCEDURE EXISTS_operator()
+	BEGIN
+
+		DECLARE FieldExists BOOLEAN;
+		SET FieldExists=EXISTS(InputRoot.JSON.Data.source.F1[]);
+		SET OutputRoot.JSON.Data.text1=FieldExists;
+
+		SET OutputRoot.JSON.Data.resym=InputRoot.JSON.Data.source.F1[1].[1];
+
+
+		DECLARE Field2Exists BOOLEAN;
+		SET Field2Exists=EXISTS(SELECT F.* FROM InputRoot.JSON.Data.source.F1[1].[] AS F WHERE F='F10') ;
+		SET OutputRoot.JSON.Data.text=Field2Exists;
+
+	END;
+
+	CREATE PROCEDURE IN_operator()
+	BEGIN
+		DECLARE var1 INTEGER 30;
+		DECLARE result5 BOOLEAN;
+		SET result5 = var1 IN (InputRoot.JSON.Data.source.F1[1].[]);
+		SET OutputRoot.JSON.Data.Result5 = result5;
+
+		DECLARE var2 INTEGER 30;
+		DECLARE result6 BOOLEAN;
+		SET result6 = var2 NOT IN (InputRoot.JSON.Data.source.F1[1].[]);
+		SET OutputRoot.JSON.Data.Result6 = result6;
+
+
+
+		DECLARE result8 BOOLEAN;
+		SET result8 = var1 IN (SELECT F.* FROM InputRoot.JSON.Data.source.F1[1].[] AS F);
+		SET OutputRoot.JSON.Data.Result8 = result8;
+
+
+		DECLARE result7 BOOLEAN;
+		SET result7 = 42 NOT IN (LIST{34, 36, 37, 38, 39, 40, 41, 42, 43, 44});
+		SET OutputRoot.JSON.Data.Result7 = result7;
+	END;
+
+
+
+
+	CREATE PROCEDURE IS_operator()
+	BEGIN
+
+		DECLARE var2 INTEGER NULL;
+		DECLARE result9 BOOLEAN;
+		SET result9 = var2 IS NULL;
+		SET OutputRoot.XMLNSC.Top.Result9 = result9;
+
+
+		DECLARE var3 BOOLEAN TRUE;
+		DECLARE result10 BOOLEAN;
+		SET result10 = var3 IS TRUE;
+		SET OutputRoot.XMLNSC.Top.Result10 = result10;
+		
+		/*DECLARE var4 FLOAT NAN;
+		DECLARE result11 BOOLEAN;
+		SET result11 = var4 IS NAN;
+		SET OutputRoot.XMLNSC.Top.Result11 = result11;*/
+	END;
+
+
+
+	CREATE PROCEDURE LIKE_operator()
+	BEGIN
+		-- Using LIKE for pattern matching
+		DECLARE companyName CHARACTER 'IBM Corp';
+		DECLARE result12 BOOLEAN;
+		SET result12 = companyName LIKE 'I%'; -- TRUE, as it starts with 'I'
+		SET OutputRoot.XMLNSC.Top.Result12 = result12;
+		-- Using underscore (_) for single-character match
+		DECLARE result13 BOOLEAN;
+		SET result13 = companyName LIKE 'I__'; -- FALSE, as it expects exactly 3 characters
+		SET OutputRoot.XMLNSC.Top.Result13 = result13;
+		-- Testing if a list has exactly one element
+		-- Escaping special characters
+		DECLARE companyName2 CHARACTER 'IBM_Corp';
+		DECLARE result14 BOOLEAN;
+		SET result14 = companyName2 LIKE 'IBM\_Corp'; -- TRUE, as _ is escaped
+		SET OutputRoot.XMLNSC.Top.Result14 = result14;
+		-- Using a custom ESCAPE character
+		DECLARE result15 BOOLEAN;
+		SET result15 = companyName2 LIKE 'IBM$_Corp' ESCAPE '$'; -- TRUE
+		SET OutputRoot.XMLNSC.Top.Result15 = result15;
+	END;
+
+
+
+	CREATE PROCEDURE SINGULAR_operator()
+	BEGIN
+		DECLARE result17 BOOLEAN;
+		SET result17 = SINGULAR (LIST{42});
+		SET OutputRoot.JSON.Data.Top.Result17 = result17;
+
+		DECLARE result17 BOOLEAN;
+		SET result17 = SINGULAR (LIST{42, 43}); 
+		SET OutputRoot.XMLNSC.Top.Result17 = result17
+	END;
+
+
+
+
+
+END MODULE;
