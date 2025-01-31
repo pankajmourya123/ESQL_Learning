@@ -2,12 +2,66 @@
 phir hum  2 compute node use karenge jismia ek normal compute aur 2 wala expection handling ke lye use karenge aur yeh dono ek hi http reply node ko connect karenge aur compute node mai compte mode ko all karenge expection wale 
 compute node pe 
 
+Parse Timing Modes
 
-parse timing -- complete --message should be xmlnsc hi chaiyeh jo specify kiya voo but agar message mai error hoga phir toh bhi pass hoga 
-                no demand --message should be xmlnsc hi chaiyeh jo specify kiya voo but agar message mai error hoga phir bhi pass nahi hoga
-                Immediate --
+Parse timing defines when the parser processes a message in IBM Integration Bus (IIB) or App Connect Enterprise (ACE). There are three main parse timing modes:
+
+a) Complete
+
+The message must be parsed as XMLNSC (or the specified format).
+Even if there is an error in the message, it will still pass through the flow.
+Parsing occurs fully at the first point where the message is accessed.
 
 
+b) No Demand
+The message must be parsed as XMLNSC (or the specified format).
+However, if there is an error in the message, it will not pass through the flow.
+Parsing occurs only when a field is explicitly accessed in the ESQL code.
+
+
+c) Immediate
+The message must be parsed immediately when the input node receives it.
+Any error in the message will cause immediate failure.
+This mode ensures that the entire message is valid before processing continues.
+
+
+Compute Mode defines how the message tree is handled when passing through a Compute Node in IBM Integration Bus (IIB) or App Connect Enterprise (ACE).
+It determines which parts of the message tree are propagated to the next node.
+
+1. All (Default) Mode
+All parts of the message (InputRoot, LocalEnvironment, Environment, and ExceptionList) are copied and available for modification.
+Changes to any part of the message tree will be reflected in the output.
+
+
+2. Message Mode
+Only the InputRoot (actual message content) is copied.
+LocalEnvironment, Environment, and ExceptionList are not available.
+Used when modifications are needed only in the message body.
+
+
+3. LocalEnvironment and Message Mode
+Both InputRoot and LocalEnvironment are copied.
+Environment and ExceptionList are not available.
+Useful when routing decisions depend on transport headers (like HTTP headers, MQMD headers, etc.).
+
+
+4. Environment Mode
+Only the Environment tree is copied.
+The message (InputRoot) is not available.
+Used when handling metadata without modifying the actual message.
+
+
+5. LocalEnvironment Mode
+Only LocalEnvironment is copied.
+Message (InputRoot) and Environment are not available.
+Useful for updating headers and routing information without affecting the message.
+
+
+6. Exception Mode
+Only ExceptionList is copied.
+InputRoot, LocalEnvironment, and Environment are not available.
+Used for error handling and debugging without accessing the main message.
+Compute Mode defines how the message tree is handled when passing through a Compute Node in IBM Integration Bus (IIB) or App Connect Enterprise (ACE). It determines which parts of the message tree are propagated to the next node.
 
 
 
