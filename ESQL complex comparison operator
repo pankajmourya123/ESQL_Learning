@@ -125,6 +125,9 @@ CREATE COMPUTE MODULE flow1_Compute
 		DECLARE result15 BOOLEAN;
 		SET result15 = companyName2 LIKE 'IBM$_Corp' ESCAPE '$'; -- TRUE
 		SET OutputRoot.XMLNSC.Top.Result15 = result15;
+
+
+The escape character ensures that a wildcard character (like _,$) is matched as a normal character, not as a wildcard.
 	END;
 
 
