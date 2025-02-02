@@ -1,0 +1,54 @@
+CREATE COMPUTE MODULE flow43_Compute
+
+  CREATE FUNCTION Main() RETURNS BOOLEAN
+  BEGIN
+    CALL CopyEntireMessage();
+    RETURN TRUE;
+  END;
+
+  CREATE PROCEDURE CopyEntireMessage() 
+  BEGIN
+    DECLARE A BOOLEAN;
+    DECLARE B BOOLEAN;
+    DECLARE NULL_VALUE BOOLEAN  NULL;
+    
+    -- Example of AND operation
+    SET A = TRUE;
+    SET B = FALSE;
+    IF A AND B THEN
+        SET OutputRoot.JSON.Data.AND_Result = TRUE;
+    ELSE
+        SET OutputRoot.JSON.Data.AND_Result = FALSE;
+    END IF;
+    
+    -- Example of OR operation
+    SET A = FALSE;
+    SET B = TRUE;
+    IF A OR B THEN
+        SET OutputRoot.JSON.Data.OR_Result = TRUE;
+    ELSE
+        SET OutputRoot.JSON.Data.OR_Result = FALSE;
+    END IF;
+    
+    -- Example of NOT operation
+    SET A = TRUE;
+    IF NOT A THEN
+        SET OutputRoot.JSON.Data.NOT_Result = TRUE;
+    ELSE
+        SET OutputRoot.JSON.Data.NOT_Result = FALSE;
+    END IF;
+    
+    -- Handling NULL (UNKNOWN) values
+    IF A AND NULL_VALUE THEN
+        SET OutputRoot.JSON.Data.AND_NULL_Result = TRUE;
+    ELSEIF A OR NULL_VALUE THEN
+        SET OutputRoot.JSON.Data.OR_NULL_Result = TRUE;
+    ELSEIF NULL_VALUE IS NOT TRUE THEN
+        SET OutputRoot.JSON.Data.NOT_NULL_Result = TRUE;
+    ELSE
+        SET OutputRoot.JSON.Data.NULL_Result = FALSE;
+    END IF;
+    
+  END;
+
+END MODULE;
