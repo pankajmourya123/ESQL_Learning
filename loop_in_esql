@@ -1,0 +1,54 @@
+
+CREATE COMPUTE MODULE flow1_Compute
+	DECLARE Count SHARED INT;
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		DECLARE i INTEGER;
+		DECLARE j INTEGER 1;
+		DECLARE h INTEGER 1;
+		DECLARE o INTEGER 1;
+		SET i=1;
+
+
+		X:Loop
+		SET i=i+1;
+		IF i=2 THEN
+			ITERATE X;
+		END IF;
+		SET OutputRoot.JSON.Data.count1=i;
+		IF i>4 THEN
+			ITERATE X;
+		END IF;
+	END LOOP X;
+
+
+	/*Y:while j<3 Do
+	SET OutputRoot.JSON.Data.count2=j;
+	SET j=j+1;
+	END while Y;
+
+
+	P : REPEAT
+	SET h = h + 1;
+	SET OutputRoot.JSON.Data.count3=h;
+	UNTIL
+	h>= 3
+	END REPEAT P;
+	SET OutputRoot.MQMD=InputRoot.MQMD;
+	SET Environment.SourceData.Folder[1].Field1 = 'Field11Value';
+	SET Environment.SourceData.Folder[1].Field2 = 'Field12Value';
+	SET Environment.SourceData.Folder[2].Field1 = 'Field21Value';
+	SET Environment.SourceData.Folder[2].Field2 = 'Field22Value';
+	FOR source AS Environment.SourceData.Folder[] DO
+	CREATE LASTCHILD OF OutputRoot.XMLNSC.Data.ResultData.MessageArrayTest.Folder[i]
+	NAME 'FieldA' VALUE '\' || source.Field1 || '\' || CAST(i AS CHAR);
+	CREATE LASTCHILD OF OutputRoot.XMLNSC.Data.ResultData.MessageArrayTest.Folder[i]
+	NAME 'FieldB' VALUE '\' || source.Field2 || '\' || CAST(i AS CHAR);
+	SET i = i + 1;
+	END FOR;*/
+
+
+
+	RETURN TRUE;
+END;
+END MODULE;
