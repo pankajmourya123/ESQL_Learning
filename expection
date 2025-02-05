@@ -65,7 +65,53 @@ Compute Mode defines how the message tree is handled when passing through a Comp
 
 
 
+Failure Actions in IBM Integration Bus (IIB) / IBM ACE
 
+1️⃣ Exception (Stops Immediately)
+
+Definition: Stops processing as soon as the first error is encountered.
+
+Use Case: When data integrity is critical.
+
+Example:
+
+A bank transaction API encounters an invalid account number → Stops immediately to prevent money transfer errors.
+
+
+
+2️⃣ Exception List (Captures All Errors, Then Stops)
+
+Definition: Collects all validation errors before stopping.
+
+Use Case: When multiple fields need validation before halting the process.
+
+Example:
+
+A form submission with errors in name, email, and phone → Captures all errors first, then stops so the user gets a complete error list.
+
+
+
+3️⃣ Local Error Log (Logs Errors, Continues Processing)
+
+Definition: Logs errors in broker logs but does not stop execution.
+
+Use Case: When errors need to be recorded without disrupting the process.
+
+Example:
+
+An e-commerce system logs invalid phone numbers but continues processing valid orders.
+
+
+
+4️⃣ User Trace (Logs Errors in a Trace File, Continues Processing)
+
+Definition: Logs errors for debugging but allows processing to continue.
+
+Use Case: When in-depth debugging or analysis is required.
+
+Example:
+
+A data processing system logs errors in a trace file while continuing to process other records.
 
 
 
