@@ -1,0 +1,11 @@
+DECLARE myvar CHARACTER;
+		DECLARE myblob BLOB;
+		DECLARE mychar CHARACTER;
+		SET myblob = InputRoot.BLOB.BLOB;
+		SET mychar = CAST(myblob AS CHARACTER CCSID 1208);
+		DECLARE jsonBlob BLOB;            
+           
+	
+		CREATE LASTCHILD OF Environment DOMAIN('XMLNSC') PARSE(mychar CCSID 1208);
+		DECLARE myxml REFERENCE TO Environment.XMLNSC;
+        SET OutputRoot.JSON.Data.text=myxml;
