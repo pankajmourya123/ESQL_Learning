@@ -1,3 +1,18 @@
+yaha pe mera requiremnet ye tha ki mai ek xml data for eg   jo ki blob blob mai mai aan achaiyhe aur usse hum json mai convert karenge isyile maine yaha pe kya logic lagaya 
+ki mai  phele blob ko charcter mai convert karunga kyunki blob hexademical mai hota hai to usse convert karte time aur output ke time hexacdecimal form mai aayega isyle mai 
+blob ko charceter mai convert kiya phir maine kya dimaag lagaya kyunki humai output json mai chaiyeh aur voo parent child jaise hona chahiye isyle maine phele blob --charcetr --xml -- json
+<root>
+<name>pankaj</name>
+<name2>pakyaa</name2>
+</root>
+
+aur ek baat jab xml data bhej rahe hai toh voo sahi format mai hona chaihye bhale hi voo blob yaa text form but proper xml hiona chaihye ager hu  apne code mai xml conversion rahe 
+hai InputRoot ke blob ko 
+yeh isse samjhe sakte jab hum jab string ko number mai convertb karte hai toh agar koi isa strinh=g joo number mai convert nahi ho sakta toh humai error mil jata hai bas same goes here
+
+
+
+
 DECLARE myvar CHARACTER;
 		DECLARE myblob BLOB;
 		DECLARE mychar CHARACTER;
