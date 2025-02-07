@@ -1,0 +1,13 @@
+1. Basic BEGIN ... END Statement with Local Variable Scope
+DECLARE var1 CHAR 'var1';
+	CREATE PROCEDURE CopyEntireMessage()BEGIN
+		 
+		 DECLARE Var1 CHAR 'varlocal';
+		SET var1 = 'Upvarlocal';
+		
+		SET OutputRoot.JSON.Data.res=var1;
+
+	END;
+
+
+ 
