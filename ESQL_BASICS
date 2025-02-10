@@ -5,3 +5,16 @@ Database node
 DatabaseInput node
 Filter node
 Mapping node
+Compute Node: When you need to perform data transformations or message manipulation (e.g., changing the structure, adding/removing fields, calculations).
+
+
+2. Database Node: When interacting with a database to perform CRUD operations (Insert, Update, Delete).
+
+
+3. DatabaseInput Node: When you need to fetch data from a database and use it in the flow.
+
+
+4. Filter Node: When you need to conditionally filter messages (e.g., based on certain conditions).
+
+
+5. Mapping Node: When you need to map data from one format to another (e.g., converting between XML structures or changing field names/values).
