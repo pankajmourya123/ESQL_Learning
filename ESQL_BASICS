@@ -1,0 +1,7 @@
+You can use ESQL in the following built-in nodes:
+
+Compute node
+Database node
+DatabaseInput node
+Filter node
+Mapping node
