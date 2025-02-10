@@ -121,5 +121,18 @@ CREATE COMPUTE MODULE flow3_Compute
     "LOCAL_TIMEZONE": "INTERVAL '330' MINUTE"
 }
 */
+
+IST = UTC + 5:30 = GMT + 5:30
+
+
+2. IBM IIB represents timezone offsets in minutes, so IST is shown as "INTERVAL 330 MINUTE"
+
+
+3. LOCAL_TIMEZONE tells how much your system's time differs from UTC.
+UTC (Coordinated Universal Time): The primary time standard by which the world regulates clocks and time; it does not change with the seasons.
+
+GMT (Greenwich Mean Time): A time zone originally referring to mean solar time at the Royal Observatory in Greenwich, London; it is now largely replaced by UTC for timekeeping purposes.
+
+IST (Indian Standard Time): The time zone observed throughout India and Sri Lanka, which is UTC+5:30, meaning it is 5 hours and 30 minutes ahead of UTC.
 	END;
 END MODULE;
