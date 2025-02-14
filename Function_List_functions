@@ -1,0 +1,56 @@
+
+
+CREATE COMPUTE MODULE flowtp_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage()
+	BEGIN
+		-- Declare ROW structures for chocolate, biscuit, and fruit data
+		DECLARE ChocolateData ROW;
+		DECLARE BiscuitData ROW;
+		DECLARE FruitData ROW;
+		-- Assign values to ROW data
+		SET ChocolateData.PartNumber = 1;
+		SET ChocolateData.Description = 'Chocolate bar';
+		SET ChocolateData.Price = 0.30;
+
+		SET BiscuitData.PartNumber = 2;
+		SET BiscuitData.Description = 'Biscuit';
+		SET BiscuitData.Price = 0.35;
+
+		SET FruitData.PartNumber = 3;
+		SET FruitData.Description = 'Fruit';
+		SET FruitData.Price = 0.42;       
+       
+
+
+		SET OutputRoot.XMLNS.Data.ProductList[] = LIST{ChocolateData, BiscuitData, FruitData};       
+
+
+		DECLARE count INTEGER;
+		SET count = CARDINALITY(OutputRoot.XMLNS.Data.ProductList[]);      
+      
+
+     
+
+
+		DECLARE Field1Exists BOOLEAN EXISTS(OutputRoot.XMLNS.Data.ProductList[]);
+		SET OutputRoot.XMLNS.Data.root=Field1Exists;
+
+
+		DECLARE Field1F12Unique BOOLEAN
+		SINGULAR(OutputRoot.XMLNS.Data.ProductList[]);
+		SET OutputRoot.XMLNS.Data.root2=Field1Exists;
+		
+
+	 DECLARE FirstProduct ROW;
+SET FirstProduct = THE(SELECT * FROM OutputRoot.XMLNS.Data.ProductList[]);
+SET OutputRoot.XMLNS.Data.Test=FirstProduct;
+
+		
+	END;
+END MODULE;
