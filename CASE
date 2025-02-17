@@ -1,0 +1,49 @@
+
+
+CREATE COMPUTE MODULE flowtp_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage()
+	BEGIN
+		
+	 --	Simple CASE: Compares a single expression against multiple values.
+		 DECLARE CurrentMonth CHAR;
+  DECLARE MonthText CHAR;
+  SET CurrentMonth = EXTRACT(MONTH FROM CURRENT_DATE);
+
+  SET MonthText = 
+   CASE CurrentMonth
+      WHEN 1 THEN 'January' 
+      WHEN 2 THEN 'February'
+      WHEN 3 THEN 'March' 
+      WHEN 4 THEN 'April' 
+      WHEN 5 THEN 'May' 
+      WHEN 6 THEN 'June' 
+      ELSE 'Second half of year' 
+   END;
+   SET OutputRoot.JSON.Data.CurrentMonth=CurrentMonth;
+		SET OutputRoot.JSON.Data.MonthText=MonthText;
+		
+ --Searched CASE: Evaluates multiple conditions that can be more complex		
+
+	/*	DECLARE CurrentMonth CHAR;
+DECLARE MonthText CHAR;
+
+SET CurrentMonth = EXTRACT(MONTH FROM CURRENT_DATE);
+
+SET MonthText = 
+   CASE 
+      WHEN CurrentMonth = '01' THEN 'January' 
+      WHEN CurrentMonth = '02' THEN 'February'
+      WHEN CurrentMonth = '03' THEN 'March' 
+      WHEN CurrentMonth = '04' THEN 'April' 
+      WHEN CurrentMonth = '05' THEN 'May' 
+      WHEN CurrentMonth = '06' THEN 'June' 
+      ELSE 'Second half of year' 
+   END;*/
+	END;
+END MODULE;
