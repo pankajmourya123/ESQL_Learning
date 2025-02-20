@@ -189,4 +189,43 @@ CREATE COMPUTE MODULE taskexpection_Compute1
 
 		END;
 	END MODULE;
+CREATE COMPUTE MODULE sub_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
 
+		DECLARE rootRef REFERENCE TO InputExceptionList;
+		CALL prcExc(rootRef);
+		RETURN TRUE;
+	END;
+
+
+	CREATE FUNCTION prcExc(IN ref REFERENCE)
+	BEGIN
+	   DECLARE childRef REFERENCE TO ref;
+
+		WHILE LASTMOVE(childRef) DO
+			MOVE childRef LASTCHILD  TYPE Name NAME 'ParserException' ;
+		END WHILE;
+		
+		
+		SET OutputRoot.JSON.Data.Exception.LastExceptionNumber = childRef.Number;
+		SET OutputRoot.JSON.Data.Exception.LastExceptionText = childRef.Text;
+		SET OutputRoot.JSON.Data.Exception.LastExceptionText2 = childRef.Insert[5].Text;
+		SET OutputRoot.JSON.Data.Exception.Type = FIELDNAME(InputExceptionList.[1]);
+	END;	
+	
+	/*CREATE PROCEDURE CopyEntireMessage()
+	BEGIN
+	DECLARE ptrException REFERENCE TO InputExceptionList;
+	MOVE ptrException LASTCHILD;
+	MOVE ptrException LASTCHILD;
+	MOVE ptrException LASTCHILD;
+	DECLARE lastChildReference REFERENCE TO ptrException;
+	DECLARE i INTEGER 1;
+	SET OutputRoot.JSON.Data.Exception.LastExceptionNumber = lastChildReference.Number;
+	SET OutputRoot.JSON.Data.Exception.LastExceptionText = lastChildReference.Insert[5].Text || ' _____ ' || lastChildReference.Text;
+	SET OutputRoot.JSON.Data.Exception.Type = FIELDNAME(InputExceptionList.[1]);
+	
+END;
+*/
+END MODULE;
