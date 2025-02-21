@@ -1,0 +1,66 @@
+CREATE COMPUTE MODULE flowtp_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage()
+	BEGIN
+		DECLARE Total INTEGER;
+		/*--1.Simple Selection
+		SET OutputRoot.JSON.Data.Part[] =( SELECT
+		p.name as Naam,
+		p.roll_no as roll_no,
+		p.age as Umar
+		FROM InputRoot.JSON.Data[] AS p
+		);*/
+		-- yaha pe OutputRoot.JSON.Data.Part[] kyunki return type list means ek se jada value hai
+		-------------------------------------------------------------------------------------------------------------------------------
+		/*SET OutputRoot.JSON.Data.Part =( SELECT COUNT ( p.roll_no ) FROM InputRoot.JSON.Data[] AS p
+		); */
+		-- yaha pe OutputRoot.JSON.Data.Part kyunki return ek hi value hai
+		-------------------------------------------------------------------------------------------------------------------------------
+		/*DECLARE count INT 0;
+		FOR P AS InputRoot.JSON.Data[] DO
+		SET count = count + 1;
+		END FOR;
+		SET OutputRoot.JSON.Data.Count = count;*/
+		-------------------------------------------------------------------------------------------------------------------------------
+		/*DECLARE count INT 0;
+		FOR P AS InputRoot.JSON.Data[] DO
+		IF P.roll_no = 90 THEN
+		SET count = count + 1;
+		END IF;
+		END FOR;
+		SET OutputRoot.JSON.Data.Count =CARDINALITY(InputRoot.JSON[]);*/
+		-----------------------------------------------------------------------------------------------------------------------------
+		--WHERE caluse
+
+	
+	/*	DECLARE car INTEGER;
+		SET car =CARDINALITY(InputRoot.JSON.Data.Item[]);*/
+
+	/*DECLARE i INTEGER;
+		SET i = 1;
+		X : WHILE i <= car DO
+			SET OutputRoot.JSON.Data.text[i].roll= ( SELECT
+			InputRoot.JSON.Data.Item[i].roll
+			FROM InputRoot.JSON.Data where InputRoot.JSON.Data.Item[i].roll > 100 ) ;
+			SET i = i + 1;
+		END WHILE X;
+		-- SET OutputRoot.JSON.Data.text[].roll=InputRoot.JSON.Data.Item[].roll;*/
+
+
+
+
+		SET OutputRoot.JSON.Data.text[] = LIST{( SELECT
+			InputRoot.JSON.Data.Item.roll,
+		 	InputRoot.JSON.Data.Item.name
+			FROM InputRoot.JSON.Data  )};
+
+
+	END;
+
+END MODULE;
