@@ -1,0 +1,29 @@
+
+
+
+
+CREATE COMPUTE MODULE flowtp_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage()
+	BEGIN
+		-- Set the OutputRoot JSON Data structure
+		SET OutputRoot.JSON.Data.RootBitStream = RootBitStream; -- Represents the root of the message stream
+		SET OutputRoot.JSON.Data.FolderBitStream = FolderBitStream; -- Represents the folder structure in the message
+		SET OutputRoot.JSON.Data.ValidateContentAndValue = ValidateContentAndValue; -- Validates both content and value of the message
+		SET OutputRoot.JSON.Data.ValidateValue = ValidateValue; -- Validates only the value of the message
+		SET OutputRoot.JSON.Data.ValidateContent = ValidateContent; -- Validates only the content of the message
+		SET OutputRoot.JSON.Data.ValidateNone = ValidateNone; -- Indicates no validation is performed
+		SET OutputRoot.JSON.Data.ValidateException = ValidateException; -- Represents an exception during validation
+		SET OutputRoot.JSON.Data.ValidateExceptionList = ValidateExceptionList; -- List of exceptions encountered during validation
+		SET OutputRoot.JSON.Data.ValidateLocalError = ValidateLocalError; -- Represents a local error encountered during processing
+		SET OutputRoot.JSON.Data.ValidateUserTrace = ValidateUserTrace; -- Trace information for user-related validation
+		
+	END;
+
+END MODULE;
