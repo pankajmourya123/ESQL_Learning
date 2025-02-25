@@ -18,3 +18,15 @@ Compute Node: When you need to perform data transformations or message manipulat
 
 
 5. Mapping Node: When you need to map data from one format to another (e.g., converting between XML structures or changing field names/values).
+
+
+DEFALUT SCHEMA 
+1)the default schema is an empty schema that is automatically created when you create a new application or library.
+2)It does not have a specific name and is simply referred to as the "default" schema
+3)When you create ESQL files without specifying a schema, they are placed in this default schema
+
+NON-DEFALUT SCHEMA(User defined schema )
+1) you explicitly create and name when organizing your ESQL files.
+2)This allows for better organization and management of ESQL code, especially in shared libraries where multiple applications or projects may need to access the same ESQL files.
+
+we can include schema in differrent by PATH CALUSE 
