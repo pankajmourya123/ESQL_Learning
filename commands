@@ -1,3 +1,5 @@
 when ever we create a server its .yml file automactilly get created if we want change any prppert related to server we can change it by command or chnaging it in direct ymal file 
+/var/mqsi/components/IIBPRODBRKR/servers/pankaj   -- yaha par humne yml file milega 
+ 
 mqsichangeproperties IIBPRODBRKR -e pankaj -o ComIbmJVMManager -n jvmDebugPort -v 8158 -- for setting jvm debug port 
 mqsichangeproperties IIBPRODBRKR -e pankaj -o ComIbmHttpListener -n httpPort -v 8080 ---  for if http port is stop
