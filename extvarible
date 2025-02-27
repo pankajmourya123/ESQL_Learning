@@ -27,7 +27,12 @@ CREATE COMPUTE MODULE flow23_Compute1
 		RETURN TRUE;
 	END;
 
+ab yaha pe haumne external varible compute module ke bahar decalre kiya toh matlab isse dusre flow acces kar sakte hai but problem hai yeh ki jab hum iss dusre flow
+mai acces karte hai toh voo apni default value lega (difference between shared and external is case bas yehi hai ki external  ko hum code ke andar edit nhi kar sakte bas 
+acces kar sakte hai);
 
+aur jab hum  compute module ke external ke andar declare karte hai toh hum usse srif usse us hi flow acces kar sakte hai aur default value lega joo hum assign kiy voo value
+legaa 
 
 
 CREATE COMPUTE MODULE app89_Compute
@@ -41,3 +46,4 @@ CREATE COMPUTE MODULE app89_Compute
 	
 	
 END MODULE;
+
