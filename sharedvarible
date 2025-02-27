@@ -23,6 +23,8 @@ END MODULE;
 
 
 --yaha par 2 httpinput ko 1 compute se connect kar phir voo httpoutput
+is upar waale code mai hum shared varible ko do http node ke bheech share kar rahe aur is shared varible ko hum compute modeule ke bahar use nhi kar sakte kyunki uski 
+visisbilty scope compute module ke andar declare kiya hai isyle  .
 
 
 <------------------------------------------------------------------------------------------------------------------------------------------------------------------>
@@ -51,7 +53,9 @@ CREATE COMPUTE MODULE Timepass_Compute
 END MODULE;
 
 
-
+--- ab yaha  pe hum iss shared varible ko compute module ke bahar decalre kiya hai matlab hum iss comput module ke bahar use kar sakte hai lekin lekin yeh varible shared 
+nahi hoga jab haum duser flow mai is ko acces kar rahe hai .
+matlab shared varible acces toh ho sakta hai flow ke bahar but shared nhi ho sakta hai.
 
 
 
