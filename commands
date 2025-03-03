@@ -3,6 +3,6 @@ when ever we create a server its .yml file automactilly get created if we want c
  
 mqsichangeproperties IIBPRODBRKR -e pankaj -o ComIbmJVMManager -n jvmDebugPort -v 8158 -- for setting jvm debug port 
 mqsichangeproperties IIBPRODBRKR -e pankaj -o ComIbmHttpListener -n httpPort -v 8080 ---  for if http port is stop
-echo MQSI_WORKPATH to see work path of mqsi
+echo $MQSI_WORKPATH to see work path of mqsi
 
 blob means it does not have any specific format so we send blobl data that it will send data in its format only means if we send xml as blob then it will show xml
