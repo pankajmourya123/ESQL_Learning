@@ -6,3 +6,4 @@ mqsichangeproperties IIBPRODBRKR -e pankaj -o ComIbmHttpListener -n httpPort -v 
 echo $MQSI_WORKPATH to see work path of mqsi
 
 blob means it does not have any specific format so we send blobl data that it will send data in its format only means if we send xml as blob then it will show xml
+running command in linux with ./amqsput means that we are  explicitly tells the shell to execute amqsput from the current directory instead of searching sysyetm wide paths
