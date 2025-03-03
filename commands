@@ -3,3 +3,4 @@ when ever we create a server its .yml file automactilly get created if we want c
  
 mqsichangeproperties IIBPRODBRKR -e pankaj -o ComIbmJVMManager -n jvmDebugPort -v 8158 -- for setting jvm debug port 
 mqsichangeproperties IIBPRODBRKR -e pankaj -o ComIbmHttpListener -n httpPort -v 8080 ---  for if http port is stop
+echo MQSI_WORKPATH to see work path of mqsi
