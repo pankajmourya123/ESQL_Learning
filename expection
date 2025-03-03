@@ -13,13 +13,13 @@ Parse timing defines when the parser processes a message in IBM Integration Bus 
 a) Complete
 
 The message must be parsed as XMLNSC (or the specified format).
-Even if there is an error in the message, it will still pass through the flow.
+Even if there is an error in the message, it will still pass through the flow(here we are talking about error).
 Parsing occurs fully at the first point where the message is accessed.
 
 
 b) No Demand
 The message must be parsed as XMLNSC (or the specified format).
-However, if there is an error in the message, it will not pass through the flow.
+However, if there is an error in the message, it will not pass through the flow(here we are talking about error).
 Parsing occurs only when a field is explicitly accessed in the ESQL code.
 
 
