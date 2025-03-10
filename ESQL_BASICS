@@ -30,3 +30,17 @@ NON-DEFALUT SCHEMA(User defined schema )
 2)This allows for better organization and management of ESQL code, especially in shared libraries where multiple applications or projects may need to access the same ESQL files.
 
 we can include schema in differrent by PATH CALUSE 
+
+PASSTHRU Statement: Use for executing non-select SQL commands (e.g., CREATE, DROP, INSERT, UPDATE);
+PASSTHRU Function: Use for executing SELECT statements, especially complex ones that require additional SQL features.
+
+PASSTHRU Statement
+Primary Purpose: The PASSTHRU statement is primarily intended for executing non-select SQL commands, such as CREATE, DROP, INSERT, and UPDATE. It is not designed to return a result set.
+
+Using SELECT Statements: While the PASSTHRU statement can technically be used to execute a SELECT statement, it is not the recommended or intended use case. The result of a SELECT executed via PASSTHRU is not returned to the calling context in a structured way, which means you cannot directly assign the result to a message tree or process it as you would with a SELECT statement executed via the PASSTHRU function.
+
+
+PASSTHRU Function
+Primary Purpose: The PASSTHRU function is specifically designed for executing SELECT statements, especially complex ones that may not be supported directly by the integration node. It returns a result set that can be assigned to a message tree.
+
+Using SELECT Statements: The PASSTHRU function is the appropriate choice for executing SELECT statements because it allows you to retrieve and work with the result set directly
