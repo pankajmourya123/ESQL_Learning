@@ -1,0 +1,107 @@
+
+
+CREATE COMPUTE MODULE Begin_End_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		--CALL Varible_scope();
+		--CALL Labeled();
+		--CALL HANDLER_EXCEP();
+		--CALL ATOMIC_TEST();
+		CALL LEAVE_TEST();
+		--CALL ITERATE_TEST();
+
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE LEAVE_TEST() BEGIN
+		LOOP_BLOCK: BEGIN
+			DECLARE x INTEGER 1;
+			SET x =x+1;
+set OutputRoot.JSON.Data.num11=x;
+			IF x = 5 THEN
+				LEAVE LOOP_BLOCK; -- Exits block immediately
+				set OutputRoot.JSON.Data.num11=x;
+			END IF;
+
+		 set OutputRoot.JSON.Data.num11='This will not execute';
+		END LOOP_BLOCK;
+	END;
+	
+	DECLARE num Shared INTEGER 1;
+	CREATE PROCEDURE ATOMIC_TEST() BEGIN ATOMIC
+		set num=num+1;
+		set OutputRoot.JSON.Data.num=num;
+	END;
+
+
+	CREATE PROCEDURE Varible_scope() BEGIN
+		DECLARE my_var CHARACTER 'Outer';
+		SET OutputRoot.JSON.Data.my_var1=my_var; -- Output: 'Outer'
+
+		BEGIN
+			DECLARE my_var CHARACTER 'Inner';
+			SET OutputRoot.JSON.Data.my_var2=my_var; -- Output: 'Inner'
+		END;
+
+		SET OutputRoot.JSON.Data.my_var3=my_var;
+	END;
+
+
+	CREATE PROCEDURE Labeled() BEGIN
+
+		OuterBlock: BEGIN
+
+			DECLARE var1 INTEGER 10;
+
+
+			InnerBlock: BEGIN
+				DECLARE var1 INTEGER 20;
+				SET OutputRoot.JSON.Data.var2=var1; -- Output: 20
+			END InnerBlock;
+
+
+			SET OutputRoot.JSON.Data.var1=var1; -- Output: 10
+
+		END OuterBlock;
+
+
+
+	END;
+
+
+	CREATE PROCEDURE HANDLER_EXCEP()
+	BEGIN
+		DECLARE EXIT HANDLER FOR SQLSTATE VALUE 'U11222'
+		BEGIN
+			-- Error Handling
+			SET OutputRoot.JSON.Data.ErrorMessage = 'An error occurred!';
+		END;        
+
+
+		DECLARE EXIT HANDLER FOR SQLSTATE VALUE 'U11262'
+		BEGIN
+			-- Error Handling
+			SET OutputRoot.JSON.Data.ErrorMessage = 'An error occu';
+		END;
+
+
+
+		DECLARE x INTEGER 10;
+		DECLARE y INTEGER 0;
+		DECLARE MESSAGE_TEXT CHARACTER;
+		-- Example operation that may cause an error (division by zero)
+		DECLARE result INTEGER;
+
+		IF y = 0 THEN
+			SET MESSAGE_TEXT = 'Division by zero error';
+			THROW USER EXCEPTION VALUES( -1, 'U11262', 42, 'error text' );
+			SET OutputRoot.JSON.Data.Result=MESSAGE_TEXT;
+		ELSE
+			SET result = x / y;
+			SET OutputRoot.JSON.Data.Result = result;
+		END IF;
+	END;
+
+
+
+END MODULE;
