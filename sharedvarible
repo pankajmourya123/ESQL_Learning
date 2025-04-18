@@ -1,3 +1,7 @@
+declartion at application level
+intilization is only available for flow 
+
+=======================================================================================================================
 CREATE COMPUTE MODULE Typevaribleshared_Compute
 	DECLARE sharedCounter SHARED INTEGER 0;
 	CREATE FUNCTION Main() RETURNS BOOLEAN
