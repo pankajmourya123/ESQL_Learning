@@ -87,3 +87,5 @@ same flow ki baat kare toh agar humne shaared varible compute module ke andar de
 module ke bahar declared kiya hai toh usse pure flow mai kahi bhi shared kar paayenge (shared aur acces mai farak hai)
 
 agar hum excetion group yaa application restart yaa application redepoly kar rahe hai toh voo reset ho jayeg default value se 
+set sharvar =sharvar +1; ab yaha pe actually sharvar mai acutal data value stofre ho rahi agra hum 
+set outputroot.json.data.sharvar=sharvar+1 yaha pe sharvar mai actual value nhi jaa raha bas outputroot mai ek file create kar rahe sharvar 
