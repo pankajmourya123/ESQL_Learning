@@ -86,4 +86,4 @@ yaha par 2 httpinput 2 compute and 1 httpreply
 same flow ki baat kare toh agar humne shaared varible compute module ke andar decalre kya hai toh hum usse us hi module mai hi shared kar paayenge aur humane compute 
 module ke bahar declared kiya hai toh usse pure flow mai kahi bhi shared kar paayenge (shared aur acces mai farak hai)
 
-
+agar hum excetion group yaa application restart yaa application redepoly kar rahe hai toh voo reset ho jayeg default value se 
