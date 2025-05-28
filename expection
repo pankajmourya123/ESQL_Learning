@@ -28,6 +28,11 @@ The message must be parsed immediately when the input node receives it.
 Any error in the message will cause immediate failure.
 This mode ensures that the entire message is valid before processing continues.
 
+Parse Timing	Error Handling	When Parsed	Suitable When...
+
+Complete	Error ignored	On first access	You want to delay parse but not fail early
+No Demand	Error on access	Only when needed	Optimize performance; fail only if accessed
+Immediate	Fail early	At input itself	Need early validation and strict checks
 
 
 Compute Mode defines how the message tree is handled when passing through a Compute Node in IBM Integration Bus (IIB) or App Connect Enterprise (ACE).
